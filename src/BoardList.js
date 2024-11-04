@@ -83,6 +83,7 @@ export default class BoardList extends Component {
   }
   
   render() {
+    console.log(this.props);
     console.log(this.state.BoardList);
     return (
       <>

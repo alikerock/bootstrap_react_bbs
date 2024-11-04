@@ -18,6 +18,14 @@ export default class App extends Component {
     } else if(checkList.length > 1){
       alert('하나의 게시글만 선택하세요');
     }
+    this.setState({
+      isModifyMode:checkList.length === 1
+    });
+    
+    this.setState({
+      boardId:checkList[0] || 0
+    });
+
   }
 
   render() {
@@ -25,7 +33,10 @@ export default class App extends Component {
       <div className="container">
         <h1>React Board</h1>
         <BoardList handleModify={this.handleModify}/>
-        <Write/>
+        <Write 
+          isModifyMode={this.state.isModifyMode}
+          boardId = {this.state.boardId}
+        />
       </div>
     )
   }
