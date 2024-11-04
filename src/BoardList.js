@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Axios from "axios";
+import Form from 'react-bootstrap/Form';
 
 /*
 const submitTest = ()=>{
@@ -21,7 +22,17 @@ class Board extends Component {
   render() {
     return (
       <tr>
-        <td>1</td>
+        <td>
+          <Form.Check // prettier-ignore
+            type="checkbox"
+            id={`default-checkbox`}
+            value={this.props.id}
+            onChange={(e)=>{
+              this.props.onCheckboxChange(e.target.checked, e.target.value)
+            }}
+          />
+        </td>
+        <td>{this.props.id}</td>
         <td>{this.props.title}</td>
         <td>{this.props.registerId}</td>
         <td>{this.props.date}</td>
@@ -32,8 +43,26 @@ class Board extends Component {
 
 export default class BoardList extends Component {
   state = {
-    BoardList:[]
+    BoardList:[],
+    checkList:[]
   }
+
+  onCheckboxChange = (checked, id) =>{
+    const list = [...this.state.checkList];
+    if(checked){
+      if(!list.includes(id)){
+        list.push(id);
+      }
+    } else{
+      let idx = list.indexOf(id);
+      list.splice(idx, 1)
+    }
+    this.setState({
+      checkList:list
+    });
+    console.log(this.state.checkList);
+  }
+
   getList = ()=>{
     Axios.get('http://localhost:8000/list')
     .then((res) => {
@@ -59,6 +88,7 @@ export default class BoardList extends Component {
         <Table striped bordered hover>
           <thead>
             <tr>
+              <th>선택</th>
               <th>번호</th>
               <th>제목</th>
               <th>작성자</th>
@@ -68,7 +98,14 @@ export default class BoardList extends Component {
           <tbody>
            {
               this.state.BoardList.map(
-                item=><Board key={item.BOARD_ID} title={item.BOARD_TITLE} registerId={item.REGISTER_ID} date={item.REGISTER_DATE}/>
+                item=><Board 
+                  key={item.BOARD_ID} 
+                  id={item.BOARD_ID} 
+                  title={item.BOARD_TITLE} 
+                  registerId={item.REGISTER_ID} 
+                  date={item.REGISTER_DATE}
+                  onCheckboxChange={this.onCheckboxChange}
+                />
               )
            }          
           </tbody>
