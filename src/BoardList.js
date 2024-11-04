@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Axios from "axios";
 
+/*
 const submitTest = ()=>{
   //react->서버 요청을 보내고, 그 결과를 출력
   Axios.get('http://localhost:8000/')
@@ -15,7 +16,19 @@ const submitTest = ()=>{
     console.log(error);
   });
 }
-
+*/
+class Board extends Component {
+  render() {
+    return (
+      <tr>
+        <td>1</td>
+        <td>안녕하세요</td>
+        <td>admin</td>
+        <td>2024-11-04</td>
+      </tr>
+    )
+  }
+}
 
 export default class BoardList extends Component {
   render() {
@@ -53,7 +66,7 @@ export default class BoardList extends Component {
           </tbody>
         </Table>
         <div className="d-flex gap-1">
-          <Button variant="primary" onClick={submitTest}>글쓰기</Button>
+          <Button variant="primary">글쓰기</Button>
           <Button variant="secondary">수정하기</Button>
           <Button variant="danger">삭제하기</Button>
         </div>      
