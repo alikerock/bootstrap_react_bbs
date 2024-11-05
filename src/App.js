@@ -11,8 +11,8 @@ export default class App extends Component {
     isModifyMode: false, // 수정모드
     isComplete: true, // 렌더 완료(목록 출력 완료)
     boardId: 0, // 수정, 삭제할 글 번호
-    redirect_to_write: false, // 주소 변경 상태 추가
-    redirect_to_home:false
+    redirect_to_write: false, // 글쓰기(수정)페이지로 이동
+    redirect_to_home:false //홈으로 이동
   }
 
   handleModify = (checkList) => {
