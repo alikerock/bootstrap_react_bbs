@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Axios from "axios";
 import Form from 'react-bootstrap/Form';
+import { Link } from "react-router-dom";
 
 /*
 const submitTest = ()=>{
@@ -144,10 +145,14 @@ export default class BoardList extends Component {
           </tbody>
         </Table>
         <div className="d-flex gap-1">
-          <Button variant="primary">글쓰기</Button>
-          <Button variant="secondary" onClick={()=>{
+
+          <Link to="/write" className="btn btn-primary">
+           글쓰기
+          </Link>
+          
+          {/* <Button variant="secondary" onClick={()=>{
             this.props.handleModify(this.state.checkList);
-          }}>수정하기</Button>
+          }}>수정하기</Button> */}
           <Button variant="danger" onClick={this.handleDelete}>삭제하기</Button>
         </div>      
       </>
