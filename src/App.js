@@ -52,8 +52,8 @@ export default class App extends Component {
       <BrowserRouter>
         <div className="container">
           <h1>React Board</h1>
-          {this.state.redirect_to_write && <Navigate to="/write" replace />} 
-          {this.state.redirect_to_home && <Navigate to="/" replace />} 
+          {this.state.redirect_to_write && <Navigate to="/write"  />} 
+          {this.state.redirect_to_home && <Navigate to="/"  />} 
           <Routes>
             <Route path="/" element={<BoardList isComplete={this.state.isComplete} handleModify={this.handleModify} />} />
             <Route path="/write" element={<Write 
