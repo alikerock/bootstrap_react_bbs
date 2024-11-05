@@ -33,9 +33,11 @@ export default class Write extends Component {
     .then((res) => {
       this.setState({
         title:'',
-        content:''
+        content:'',
+        isModifyMode:false
       });
       this.props.handleCancel();
+      //글 수정 완료후 수정모드 -> false로 변경, 목록 다시 조회, boardID 초기화
     })
     .catch((e)=> {
       // 에러 핸들링
@@ -46,9 +48,12 @@ export default class Write extends Component {
     //글번호에 맞는 데이터 조회, 글 결과를 title, content반영, 수정모드 true    
     Axios.get(`http://localhost:8000/detail?id=${this.props.boardId}`)
     .then((res) => {
-      //const data = res.data;  
-      const {data} = res;  //destructuring 비구조할당
-      console.log(data);
+      const {data} = res;  
+      this.setState({
+        title:data[0].BOARD_TITLE,
+        content: data[0].BOARD_CONTENT,
+        isModifyMode:true
+      })
     })
     .catch((e)=> {
       // 에러 핸들링
@@ -75,11 +80,11 @@ export default class Write extends Component {
       <Form>
         <Form.Group className="mb-3" controlId="title">
           <Form.Label>제목</Form.Label>
-          <Form.Control type="text" name="title" placeholder="제목을 입력하세요" onChange={this.handleChange}/>
+          <Form.Control type="text" name="title" value={this.state.title} placeholder="제목을 입력하세요" onChange={this.handleChange}/>
         </Form.Group>
         <Form.Group className="mb-3" controlId="content">
           <Form.Label>내용</Form.Label>
-          <Form.Control as="textarea" name="content" rows={3} onChange={this.handleChange} />
+          <Form.Control as="textarea" name="content" value={this.state.content} rows={3} onChange={this.handleChange} />
         </Form.Group>
         <div className="d-flex gap-1">
           <Button variant="primary" type="submit" onClick={this.state.isModifyMode ? this.update : this.write}>{this.state.isModifyMode ? '수정완료' : '입력완료'}</Button>
