@@ -69,10 +69,17 @@ export default class Write extends Component {
 
   componentDidUpdate(prevProps) {
     // 수정모드이고 boardId가 변경되었다면, 그 글의 내용조회(detail 함수) 실행
-    if (this.props.isModifyMode && this.props.boardId !== prevProps.boardId) {
+    if (this.props.isModifyMode && this.props.boardId !== prevProps.boardId) {  
       this.datail();
     }
   }
+  componentDidMount() {
+    // 수정모드이고 boardId가 변경되었다면, 그 글의 내용조회(detail 함수) 실행
+    if (this.props.isModifyMode) {  
+      this.datail();
+    }
+  }
+
 
   handleChange = (e)=>{
     this.setState({
