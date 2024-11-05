@@ -3,13 +3,19 @@ import './App.css';
 import BoardList from './BoardList';
 import Write from './Write';
 import React, { Component } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 
-export default class App extends Component {
+function App(){
+  const navigate = useNavigate();
+  return <AppContent navigate={navigate} />
+}
+
+class AppContent extends Component {
   state = {
     isModifyMode :false, //수정모드
     isComplete:true, //렌더 완료(목록 출력 완료)
-    boardId:0 //수정,삭제할 글 번호
+    boardId:0, //수정,삭제할 글 번호
+    redirect:false //주소 변경 상태 추가
   }
 
   handleModify = (checkList)=>{
@@ -19,13 +25,11 @@ export default class App extends Component {
       alert('하나의 게시글만 선택하세요');
     }
     this.setState({
-      isModifyMode:checkList.length === 1
-    });
-    
-    this.setState({
-      boardId:checkList[0] || 0
-    });
-
+      isModifyMode:checkList.length === 1,
+      boardId:checkList[0] || 0,
+      redirect:true
+    });    
+ 
   }
   handleCancel = ()=>{
     this.setState({
@@ -33,6 +37,12 @@ export default class App extends Component {
       isComplete:false,
       boardId:0
     })
+  }
+  componentDidUpdate(){
+    if(this.state.redirect){
+      this.props.navigate("/write"); // navigate 함수로 리다이렉트
+      this.setState({redirect:false});
+    }
   }
 
   render() {
@@ -54,3 +64,5 @@ export default class App extends Component {
     )
   }
 }
+
+export default App;

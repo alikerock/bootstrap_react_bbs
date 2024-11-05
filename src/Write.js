@@ -2,12 +2,15 @@ import React, { Component } from 'react'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Axios from "axios";
+import { Navigate, Link } from "react-router-dom";
+
 
 export default class Write extends Component {
   state= {
     isModifyMode:false,
     title:'',
-    content:''
+    content:'',
+    redirect:false //주소 변경 상태 추가
   }
   write = (e)=>{
     e.preventDefault();
@@ -16,7 +19,9 @@ export default class Write extends Component {
       content:this.state.content
     })
     .then((res) => {
-      console.log(res);
+      this.setState({
+        redirect:true
+      })
     })
     .catch((e)=> {
       // 에러 핸들링
@@ -76,6 +81,9 @@ export default class Write extends Component {
     console.log(this.state);
   }
   render() {
+    if(this.state.redirect){
+      return <Navigate to="/"/>;
+    }
     return (      
       <Form>
         <Form.Group className="mb-3" controlId="title">
@@ -88,7 +96,7 @@ export default class Write extends Component {
         </Form.Group>
         <div className="d-flex gap-1">
           <Button variant="primary" type="submit" onClick={this.state.isModifyMode ? this.update : this.write}>{this.state.isModifyMode ? '수정완료' : '입력완료'}</Button>
-          <Button variant="secondary" type="reset">취소</Button>          
+          <Link to="/" className="btn btn-secondary">취소</Link>         
         </div>      
       </Form>
     )

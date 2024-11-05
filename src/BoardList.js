@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/Button';
 import Axios from "axios";
 import Form from 'react-bootstrap/Form';
 import { Link } from "react-router-dom";
-
 /*
 const submitTest = ()=>{
   //react->서버 요청을 보내고, 그 결과를 출력
@@ -150,9 +149,9 @@ export default class BoardList extends Component {
            글쓰기
           </Link>
           
-          {/* <Button variant="secondary" onClick={()=>{
+          <Button variant="secondary" onClick={()=>{
             this.props.handleModify(this.state.checkList);
-          }}>수정하기</Button> */}
+          }}>수정하기</Button>
           <Button variant="danger" onClick={this.handleDelete}>삭제하기</Button>
         </div>      
       </>
