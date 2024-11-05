@@ -33,7 +33,7 @@ class Board extends Component {
           />
         </td>
         <td>{this.props.id}</td>
-        <td>{this.props.title}</td>
+        <td><Link to={`/view?id=${this.props.id}`}>{this.props.title}</Link></td>
         <td>{this.props.registerId}</td>
         <td>{this.props.date}</td>
       </tr>
